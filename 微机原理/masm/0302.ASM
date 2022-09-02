@@ -1,0 +1,22 @@
+DSEG	SEGMENT
+		NUM		DB 1000 DUP(?)
+DSEG	ENDS
+CSEG	SEGMENT
+		ASSUME	CS:CSEG,DS:DSEG
+START:	MOV		AX,DSEG
+		MOV		DS,AX
+
+		MOV 	AX,0A0AH
+		ADD     AX,0FFFFH
+        MOV     CX,0FF00H
+        ADC     AX,CX
+        SUB     AX,AX
+        INC     AX
+        OR      CX,0FFH
+        AND     CX,0F0FH 
+        MOV     DS:[10H],CX
+        
+		MOV 	AH,4CH
+		INT		21H
+CSEG	ENDS
+		END		START
